@@ -3,20 +3,27 @@
 --最后编辑：2019-9-15 9:10
 --开源许可 Open Source
 
+--开发者们请注意：多写注释！多写注释！多写注释！
 
 
 require "cn.qssq666.robot.sdk"
 
-print("本方法需要点击[模拟]方可调试...否则只能检查常规语法错误");
+print("本方法需要点击[模拟]方可调试...否则只能检查常规语法错误");--机器人生成的代码，不用管
 
 --全局变量声明
-controller=nil
+controller=nil --有许多功能的对象，别改！别改！别改！
 --全局变量声明
+
+
+--群里有一条新消息就回调一次
+--msgitem - 消息体
+--aiteList - 艾特名单
+--hasAite - 有没有艾特机器人
+--hasAiteMe - 和hasAite功能类似，不知道有什么用
 function onReceiveMsgIsNeedIntercept(msgitem, aiteList, hasAite, hasAiteMe)
 
-local text = msgitem: getMessage()
-
-local qq = msgitem: getSenderuin()
+local text = msgitem: getMessage()--消息的内容
+local qq = msgitem: getSenderuin()--发消息的人的QQ号
 
 --rec
 if (text == "?rec")
@@ -37,9 +44,9 @@ msgitem: setMessage([[
 ■TWRP下载：twrp.me/Devices
 更多请参考【?教程】
         ]]
-        )
-api: sendMsg(msgitem)
-return true
+        )--先设置要发送的消息
+api: sendMsg(msgitem)--再发送到群里
+return true --说明这条消息已被插件处理，机器人自带的那点破处理功能就不用管了（狗头）
 end
 
 --菜单
@@ -119,7 +126,7 @@ end
 --违禁
 if ((not(string.find(text,"vpn")==nil)) or (not(string.find(text,"VPN")==nil)) or
 	 (not(string.find(text,"妈")==nil)) or (not(string.find(text,"狗管理")==nil))
-  or (not(string.find(text,"狗群主")==nil)))
+  or (not(string.find(text,"狗群主")==nil))) --初学lua，不会遍历……凑合用吧
 then
 msgitem:setMessage([[
 刚才发了一句:
@@ -130,7 +137,8 @@ msgitem:setMessage([[
 
 请注意你的言辞。
 ]])
-controller:sendAtMsg(msgitem,"949785474",msgitem:getFrienduin())
+controller:sendAtMsg(msgitem,"949785474",msgitem:getFrienduin()) --发送带艾特的消息
+		--controller:sendAtMsg(消息体,往哪个群里发(string),艾特谁的QQ号(string))
 return true
 end
 
@@ -143,7 +151,7 @@ msgitem:setMessage([[
 
 @博 @背井离乡去山西 @管理（普普通通的管理） @KarSLR @nihilo @筱皂(处理大部分事) @线粒体（机器人管理）
 有人求助你们！
-]])
+]]) --这里面的艾特可能本人收不到，所以本质上只是一段看起来像艾特的消息（狗头）
 api:sendMsg(msgitem)
 return true
 end
@@ -160,6 +168,7 @@ return true
 end
 
 --测试
+--没事别瞎用，会艾特我！by 线粒体Mitochondria
 if(text=="?测试")
 then
 msgitem:setMessage("啊")
@@ -167,15 +176,17 @@ controller:sendAtMsg(msgitem,"949785474","982567394")
 return true
 end
 
---不许艾特我
-if(hasAite)
+--反艾特
+if(hasAite) --如果艾特了机器人
 then
-controller:sendPicMsg(msgitem,"949785474","982567394","/storage/emulated/0/noat.jpg")
+controller:sendPicMsg(msgitem,"949785474","982567394","/storage/emulated/0/noat.jpg") --发一张不许艾特的图
 end
 
-return false
+return false --如果这条消息没有满足上面任何一个if，也就是不属于插件的处理范围，就交给机器人自带功能去处理
 end
 
+--插件一启动就回调一次
+--instance - 有许多功能，需要时可回调，踢人什么的
 function onReceiveControlApi(instance)
     controller=instance
 end
