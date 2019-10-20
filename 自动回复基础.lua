@@ -1,6 +1,6 @@
 --自动回复基础.lua
 --by 线粒体Mitochondria,Github:MitochondriaCN
---最后编辑：2019-9-15 9:10
+--最后编辑：2019-9-16 19:25，编辑者:MitochondriaCN
 --开源许可 Open Source
 
 --开发者们请注意：多写注释！多写注释！多写注释！
@@ -26,82 +26,71 @@ local text = msgitem: getMessage()--消息的内容
 local qq = msgitem: getSenderuin()--发消息的人的QQ号
 
 --rec
-if (text == "?rec")
+if (text == "?rec" or text=="？rec")
 then
 msgitem: setMessage([[
-🔴如何刷入Recovery
+🔴Recovery
 
-一、 使用高通9008端口刷入(仅限高通机器)
-二、 root后使用adb直接刷入(需root)
-============
-如何找适合自己机型的recovery镜像
+■基本概念
+https://baike.baidu.com/item/Recovery/9995978?fr=aladdin&ivk_sa=1022817p
 
-群内提供了R7系列大多数机型的Recovery镜像， 直接下载刷入即可。
-群里没有提供的镜像， 可到百度等搜索引擎搜索下载。
-============
-相关链接
-■如何使用adb(dd)刷入rec： jingyan.baidu.com/article/00a07f38a8aa5382d028dcb5.html
-■TWRP下载：twrp.me/Devices
-更多请参考【?教程】
-        ]]
+■如何刷入
+https://www.cnblogs.com/lirenjun/p/4581915.html
+]]
         )--先设置要发送的消息
 api: sendMsg(msgitem)--再发送到群里
 return true --说明这条消息已被插件处理，机器人自带的那点破处理功能就不用管了（狗头）
 end
 
 --菜单
-if (text == "?菜单")
+if (text == "?菜单" or text=="？菜单")
 then
 msgitem:setMessage([[
 🔴机器人菜单
-直接输入问号后面的即可使用，无需艾特机器人，如“?rec”
+直接输入问号及后面的即可使用，无需艾特机器人，如“?教程”，请注意有些不需要问号
 
-❗■?提问 进群必读，提问的艺术
-■?rec Recovery相关教程
+■?提问 进群必读，提问的艺术
 ■点歌 可以点歌，后面加歌名
 ■?教程 查看玩机教程以及本群最新研究成果
-■?rom 查看群网盘资源
 ■?找管理 艾特所有管理帮你解答问题
-===============
-机器人完善中，如有问题请联系@982567394
-机器人征集新功能建议，请将你希望增加的新功能艾特982567394后反馈
-中秋更新:
-1.细节优化
-2.新增艾特提示功能
-]]
+■翻译 后面跟要翻译的文字，仅汉英
+■字转图 后面跟要转成图片的文字
+■?网站 查看常用网站
+■?资源 获取常用资源下载地址
+■搜 可以搜图片，后面跟关键字，若关键字后面加空格再加数字可搜索第“数字”张图片]]
 )
 api:sendMsg(msgitem)
 return true
 end
 
 --教程
-if(text=="?教程") then
+if(text=="?教程" or text=="？教程") then
 msgitem:setMessage([[
 🔴教程
+请直接输入问号及后面的文字，无需艾特。
 
-■本群最新成果
-nihilo大佬的R7sm刷安卓9教程(酷安网)
-https://www.coolapk.com/feed/13687154?shareKey=YTY3Yjc1YmQ2YzNiNWQ3Nzg2YTE~&shareUid=2887850&shareFrom=com.coolapk.market_9.5
-================
-救砖（高通9008刷机）
-■R7Plusm救砖:https://m.zol.com.cn/sjbbs/d1673_23857.html
-■R7sPlus救砖:https://g.pconline.com.cn/bbs/topic-53445040-1.html
-■R7sm救砖:https://m.zol.com.cn/sjbbs/d1673_22467.html
-■群内救砖教程:https://docs.qq.com/doc/DVURhSmlzbWlRcHJV?tdsourcetag=s_qq_aiomsg
-================
-TWRP操作说明
-■百度版:https://wk.baidu.com/view/3ed75a84f705cc1755270984?pcf=2
-■群内版:https://docs.qq.com/doc/DVWtEQXJ1bkFxZ1dZ
-================
-■A33、A53、R7sm解锁Bootloader并刷入TWRP
-https://docs.qq.com/doc/DVURhSmlzbWlRcHJV?tdsourcetag=s_qq_aiomsg
-]])
+■Recovery相关——?rec 和 ?twrp
+■救砖——?救砖
+■ROM相关——?rom
+■Bootloader相关——?bl]])
 api:sendMsg(msgitem)
 return true
 end
 
+--Twrp使用手册
+if(text=="?twrp" or text=="？twrp") then
+msgitem:setMessage([[🔴TWRP
+
+■官网下载
+twrp.me/Devices
+
+■操作手册
+https://docs.qq.com/doc/DVWtEQXJ1bkFxZ1dZ]])
+api:sendMsg(msgitem)
+end
+
 --资源
-if (text=="?rom")
+if (text=="?资源" or text=="？资源")
 then
     
 msgitem:setMessage([[
@@ -126,24 +115,25 @@ end
 --违禁
 if ((not(string.find(text,"vpn")==nil)) or (not(string.find(text,"VPN")==nil)) or
 	 (not(string.find(text,"妈")==nil)) or (not(string.find(text,"狗管理")==nil))
-  or (not(string.find(text,"狗群主")==nil))) --初学lua，不会遍历……凑合用吧
+  or (not(string.find(text,"狗群主")==nil)) or (not(string.find(text,"艹")==nil))
+  or (not(string.find(text,"tm")==nil)) or (not(string.find(text,"woc")==nil))
+  or (not(string.find(text,"卧槽")==nil)) or (not(string.find(text,"傻逼")==nil))) --初学lua，不会遍历……凑合用吧
 then
 msgitem:setMessage([[
-刚才发了一句:
+ 刚才发了一句:
 
 ]].."“"..text.."”"..
 [[
 
 
-请注意你的言辞。
-]])
+请注意你的言辞。]])
 controller:sendAtMsg(msgitem,"949785474",msgitem:getFrienduin()) --发送带艾特的消息
 		--controller:sendAtMsg(消息体,往哪个群里发(string),艾特谁的QQ号(string))
 return true
 end
 
 --找管理
-if(text=="?找管理")
+if(text=="?找管理" or text=="？找管理")
 then
 msgitem:setMessage([[
 🔴找管理
@@ -157,7 +147,7 @@ return true
 end
 
 --提问
-if(text=="?提问")
+if(text=="?提问" or text=="？提问")
 then
 msgitem:setMessage([[
 🔴提问的艺术（必读）
@@ -177,9 +167,26 @@ return true
 end
 
 --反艾特
-if(hasAite) --如果艾特了机器人
+if(hasAiteMe) --如果艾特了机器人
 then
 controller:sendPicMsg(msgitem,"949785474","982567394","/storage/emulated/0/noat.jpg") --发一张不许艾特的图
+return true
+end
+
+--常用网站
+if (text=="?网站" or text=="？网站")
+then
+msgitem:setMessage(
+[[🔴常用网站
+
+■酷安:www.coolapk.com
+■MIUI论坛:www.miui.com/forum.php
+■LineageOS:www.lineageos.org
+■GitHub:github.com
+■TWRP:twrp.me/Devices
+■XDA论坛:forum.xda-developers.com]])
+api:sendMsg(msgitem)
+return true
 end
 
 return false --如果这条消息没有满足上面任何一个if，也就是不属于插件的处理范围，就交给机器人自带功能去处理
