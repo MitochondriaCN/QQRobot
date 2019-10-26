@@ -1,7 +1,7 @@
 --自动回复基础.lua
 --by 线粒体Mitochondria,Github:MitochondriaCN
---最后编辑：2019-9-16 19:25，编辑者:MitochondriaCN
---开源许可 Open Source
+--最后编辑：2019-10-26，编辑者:MitochondriaCN
+--开源许可
 
 --开发者们请注意：多写注释！多写注释！多写注释！
 
@@ -71,8 +71,10 @@ msgitem:setMessage([[
 
 ■Recovery相关——?rec 和 ?twrp
 ■救砖——?救砖
-■ROM相关——?rom
-■Bootloader相关——?bl]])
+■Bootloader相关——?bl
+
+■刷机一般流程图
+https://www.edrawsoft.cn/viewer/public/s/a33c0235855077?v1572095825343]])
 api:sendMsg(msgitem)
 return true
 end
@@ -93,19 +95,20 @@ end
 if (text=="?资源" or text=="？资源")
 then
     
-msgitem:setMessage([[
-🔴资源
+msgitem:setMessage([[🔴资源
 
 ■群网盘（不定期更新链接）
 请在百度网盘搜索账号 LihictijfCIXjd 添加，并说明你的目的。
-==============
+
 ■R7t
 url88.cn/byT69D
-==============
-其他资源
-■国外ROM合集：romshared.com/#13
-■官方各种ROM下载：2.shuajibbs.com:8083
-]])
+
+■Twrp Recovery
+官网：twrp.me/Devices
+
+■其他资源
+国外ROM合集：romshared.com/#13
+官方各种ROM下载：2.shuajibbs.com:8083]])
 
 api:sendMsg(msgitem)
 
@@ -185,6 +188,30 @@ msgitem:setMessage(
 ■GitHub:github.com
 ■TWRP:twrp.me/Devices
 ■XDA论坛:forum.xda-developers.com]])
+api:sendMsg(msgitem)
+return true
+end
+
+--救砖
+if(text=="?救砖" or text=="？救砖") then
+msgitem:setMessage(
+[[🔴救砖相关
+
+请自行到群文件、群网盘下载符合您机型的线刷包。在线刷包中会带有相应的刷机工具及使用教程，请按照教程使用。]])
+api:sendMsg(msgitem)
+return true
+end
+
+--Bootloader
+if (text=="?bl" or text=="？bl") then
+msgitem:setMessage(
+[[🔴Bootloader
+
+■什么是Bootloader？
+https://www.jianshu.com/p/75039ea24937
+
+■R7sm、A53(m)、A33(m)解锁Bootloader
+http://url.cn/5pwRsie]])
 api:sendMsg(msgitem)
 return true
 end
